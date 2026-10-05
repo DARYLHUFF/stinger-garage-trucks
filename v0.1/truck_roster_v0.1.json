@@ -1,0 +1,397 @@
+{
+  "roster": "Stinger Garage truck roster",
+  "version": "v0.1",
+  "schema": "stinger-truck-roster-v1",
+  "generated": "2026-10-05T15:33:14-04:00",
+  "generator": "box (gltf-transform 4 + meshoptimizer), package 36-truck-switcher-v0.1; sources read-only from Drive packages 30.4 and 35",
+  "hosting": {
+    "repo": "https://github.com/DARYLHUFF/stinger-garage-trucks",
+    "tag": "v0.1",
+    "cdn_base": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.1/v0.1/glb/",
+    "status": "PUBLISHED: public repo DARYLHUFF/stinger-garage-trucks, tag v0.1 (2026-10-05). Build still keeps the packaged fallback for the default rig in case the CDN is unreachable.",
+    "jsdelivr_limits": "20 MB per file (all parts below are under 20 MB); 50 MB limit applies only to directory listings, not file links."
+  },
+  "conventions": {
+    "units": "metres",
+    "frame": "glTF Y-up, front of tractor = -Z, ground (tyre contact) at y=0 - identical to the live default hauler",
+    "composition": "A rig is two GLBs (tractor + trailer) loaded and parented under one group named Hauler_<id>. Each part already contains its own Hauler_<...> root node; adopt its children (the SCSRoot_* nodes) into the rig group. World transforms are baked so root_offset_m is [0,0,0] for every v0.1 rig.",
+    "canonical_roots": {
+      "tractor": [
+        "SCSRoot_tractor_chassis",
+        "SCSRoot_tractor_cabin",
+        "SCSRoot_truck_cottrell_upgrade"
+      ],
+      "trailer": [
+        "SCSRoot_trailer_body",
+        "SCSRoot_trailer_chassis"
+      ],
+      "note": "Same names the live app's unit-splitter (Unit_tractor / Unit_trailer, presentation gap) already looks for."
+    },
+    "loader_requirements": [
+      "EXT_meshopt_compression (GLTFLoader.setMeshoptDecoder(MeshoptDecoder))",
+      "KHR_mesh_quantization (normals int8; positions are untouched float32)"
+    ],
+    "compression": "meshopt FILTER bitstream only: no reorder, no position quantization, node TRS unchanged. Default-rig parts were checked node-by-node against the 30.4 source: 756/756 nodes, max world-position/bbox difference 0 m."
+  },
+  "world_alignment": {
+    "basis": "fifth wheel / kingpin",
+    "default_kingpin_world_m": [
+      0,
+      0.546,
+      4.263
+    ],
+    "rule": "Every rig is baked so its tractor fifth wheel and trailer kingpin sit at z = 4.263 (the default's coupled hook2). The garage floor, world origin and lot origin do not move when rigs change. The display gap between units is still applied at runtime by the existing presentation shift; it is not baked in."
+  },
+  "default_id": "t660_cottrell_default",
+  "trucks": [
+    {
+      "id": "t660_cottrell_default",
+      "label": "T660 daycab + Cottrell (default)",
+      "short_label": "T660 + Cottrell",
+      "default": true,
+      "enabled": true,
+      "status": "CURRENT_BASELINE (same geometry as the live 30.4 hauler, split into two parts for the CDN)",
+      "parts": {
+        "tractor": {
+          "file": "t660_cottrell_default__tractor_v0.1.glb",
+          "url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.1/v0.1/glb/t660_cottrell_default__tractor_v0.1.glb",
+          "sha256": "7790bf0ebe0fd5a28c35e9e67a3195f0e476bc89a787acd4777ef56b83bf2653",
+          "bytes": 8964084,
+          "roots": [
+            "SCSRoot_tractor_chassis",
+            "SCSRoot_tractor_cabin",
+            "SCSRoot_truck_cottrell_upgrade"
+          ],
+          "bbox_world_m": {
+            "min": [
+              -1.7474,
+              0,
+              -6.603
+            ],
+            "max": [
+              1.7474,
+              4.2513,
+              7.272
+            ]
+          },
+          "also_contains": [
+            "Deck_D1..Deck_D9 (empty legacy nodes at the root)"
+          ]
+        },
+        "trailer": {
+          "file": "t660_cottrell_default__trailer_v0.1.glb",
+          "url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.1/v0.1/glb/t660_cottrell_default__trailer_v0.1.glb",
+          "sha256": "e375546baf3372cfc6ae66a4a05059e0caa311b02f44bcc7ca0ed8ee261e00a9",
+          "bytes": 14876400,
+          "roots": [
+            "SCSRoot_trailer_body",
+            "SCSRoot_trailer_chassis"
+          ],
+          "bbox_world_m": {
+            "min": [
+              -1.7474,
+              -0.0691,
+              1.2769
+            ],
+            "max": [
+              1.7474,
+              2.9495,
+              17.7504
+            ]
+          },
+          "also_contains": [
+            "Mech_D10",
+            "Anchor_D10_A",
+            "Deck_D10",
+            "hook2"
+          ]
+        }
+      },
+      "fallback_url": "/stinger/glb/hauler_t660_daycab_photo_led_refine_v0.1.4_empty.glb?v=photo-led-v0.1.4",
+      "fallback_sha256": "c22439d499a0d8d9bb1374eacd6158fed350b31f7ea5d13e5b024a4cdc573c3c",
+      "source": {
+        "package": "30.4-stinger-photo-led-refine-v0.1.4",
+        "file": "hauler_t660_daycab_photo_led_refine_v0.1.4_empty.glb",
+        "sha256": "c22439d499a0d8d9bb1374eacd6158fed350b31f7ea5d13e5b024a4cdc573c3c",
+        "drive_folder": "https://drive.google.com/drive/folders/1nwIxME3cY9LsNBU1xTpbbmenO__KTOyE"
+      },
+      "root_offset_m": [
+        0,
+        0,
+        0
+      ],
+      "coupling": {
+        "fifth_wheel_world_m": [
+          0,
+          0.546,
+          4.263
+        ],
+        "kingpin_world_m": [
+          0,
+          0.546,
+          4.263
+        ],
+        "source": "hook2 node in default"
+      },
+      "wheel_world_m": {
+        "tractor_front": [
+          [
+            -1.002,
+            0.516,
+            -3.112
+          ],
+          [
+            1.002,
+            0.516,
+            -3.113
+          ]
+        ],
+        "tractor_drive": [
+          [
+            -0.907,
+            0.516,
+            0.462
+          ],
+          [
+            0.907,
+            0.516,
+            0.462
+          ],
+          [
+            -0.907,
+            0.516,
+            1.71
+          ],
+          [
+            0.907,
+            0.516,
+            1.71
+          ]
+        ],
+        "trailer": [
+          [
+            -0.865,
+            0.436,
+            10.009
+          ],
+          [
+            0.865,
+            0.436,
+            10.009
+          ],
+          [
+            -0.865,
+            0.436,
+            11.155
+          ],
+          [
+            0.865,
+            0.436,
+            11.155
+          ]
+        ]
+      },
+      "deck_anchors": {
+        "mode": "native",
+        "note": "The live slot table (unit/level/along) plus geometry height probes. This rig is the fallback for every other rig."
+      },
+      "mechanisms": {
+        "mode": "native",
+        "note": "Existing control banks (D1 raise, D6 tilt via Mech_D10, beavertail, etc.) work unchanged."
+      },
+      "flags": [
+        "scale calibrated (Stinger-Scale-Calibration v0.3 lineage)",
+        "trailer tandem corrections preserved",
+        "physical_contact_verified=false"
+      ]
+    },
+    {
+      "id": "p389_cottrell_cx09",
+      "label": "Peterbilt 389 + Cottrell headrack + CX09 LSFA",
+      "short_label": "389 + CX09",
+      "default": false,
+      "enabled": true,
+      "status": "PROVISIONAL_ASSEMBLY (box-assembled from package 35 GLBs; not reviewed in Blender)",
+      "parts": {
+        "tractor": {
+          "file": "p389_cottrell_cx09__tractor_v0.1.glb",
+          "url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.1/v0.1/glb/p389_cottrell_cx09__tractor_v0.1.glb",
+          "sha256": "7a61e817db1aafc0f41bcf95481deb526cc403e009ae18bd607e13b3268bd7c2",
+          "bytes": 5470484,
+          "roots": [
+            "SCSRoot_tractor_chassis",
+            "SCSRoot_tractor_cabin",
+            "SCSRoot_truck_cottrell_upgrade"
+          ],
+          "bbox_world_m": {
+            "min": [
+              -1.3737,
+              0.0005,
+              -5.4771
+            ],
+            "max": [
+              1.3737,
+              3.7435,
+              4.6485
+            ]
+          },
+          "contents": "p389_truck_chassis_cabin + p389_cottrell_headrack (the headrack is already seated on the 389 cottrell locator) + PROVISIONAL tyres",
+          "cab_root_note": "The package 35 export merges cab and chassis into one mesh set. Everything sits under SCSRoot_tractor_chassis; SCSRoot_tractor_cabin is an empty marker."
+        },
+        "trailer": {
+          "file": "p389_cottrell_cx09__trailer_v0.1.glb",
+          "url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.1/v0.1/glb/p389_cottrell_cx09__trailer_v0.1.glb",
+          "sha256": "803d1e6390cc2afb2cd2037403feef55ac965d1d0aac833669f47184eabdec18",
+          "bytes": 9323960,
+          "roots": [
+            "SCSRoot_trailer_body",
+            "SCSRoot_trailer_chassis"
+          ],
+          "bbox_world_m": {
+            "min": [
+              -1.3701,
+              0.0005,
+              4.1053
+            ],
+            "max": [
+              1.3701,
+              2.9908,
+              18.798
+            ]
+          },
+          "contents": "cx09lsfa_trailer_body_chassis + PROVISIONAL tyres",
+          "body_root_note": "Body and chassis are merged in the package 35 export. Everything sits under SCSRoot_trailer_chassis; SCSRoot_trailer_body is an empty marker."
+        }
+      },
+      "source": {
+        "package": "35-stinger-mod-variants-v0.1",
+        "drive_glb_folder": "https://drive.google.com/drive/folders/1SOHc9OAqIVZrjrgHahGZictYssnVqXOV",
+        "files": {
+          "p389_truck_chassis_cabin.glb": {
+            "drive_id": "1PymK0RmcMPHOiyXrcEOCzqcah6wAXQF6",
+            "sha256": "a535ee03d39f6c5a8a620edf12e5003aaa90c2e0ef50e257623ff6a64879ea4a"
+          },
+          "p389_cottrell_headrack.glb": {
+            "drive_id": "1bdlqB1ga0Q_2bzLB_CcO550RJ8AOtpfI",
+            "sha256": "a17842bcb98040a0cad6d9d021df2fff2c9658b7eefec97640c285d3fe90b3c9"
+          },
+          "cx09lsfa_trailer_body_chassis.glb": {
+            "drive_id": "1mg2rULT88R3W5QIEHtJXYTcJUoLnTf-5",
+            "sha256": "61d6adb5ef5f90a1a5b6b5bf7183e68a472b04c74efa4a4802e550140db59cd7"
+          }
+        },
+        "tyre_meshes": "cloned from the default 30.4 hauler (wheel_f_0_0/1_0, wheel_r_0_0/1_0)",
+        "mod": "Peterbilt 389 Auto Hauler v1.5 by F3D Modding (ATS)"
+      },
+      "root_offset_m": [
+        0,
+        0,
+        0
+      ],
+      "baked_offsets_m": {
+        "tractor_root_offset_m": [
+          0,
+          0,
+          -0.7379
+        ],
+        "trailer_root_offset_m": [
+          0,
+          0,
+          7.4283
+        ]
+      },
+      "coupling": {
+        "fifth_wheel_world_m": [
+          0,
+          0.288,
+          4.263
+        ],
+        "kingpin_world_m": [
+          0,
+          0.3,
+          4.263
+        ],
+        "source": "SCS hook_t_bc (truck) and hook2 (trailer) locators from package 35 convert_p389.json"
+      },
+      "wheel_world_m": {
+        "tractor_front_z": -4.387,
+        "tractor_drive_z": [
+          1.661,
+          3.006
+        ],
+        "trailer_z": [
+          13.336,
+          14.548
+        ],
+        "hub_y": 0.516
+      },
+      "deck_anchors": {
+        "mode": "probe_then_fallback",
+        "fallback_rig": "t660_cottrell_default",
+        "note": "Run the same slot table and height probes on this geometry. If a slot probe returns nothing, use the default rig's resolved slot (as a fraction of unit length, plus height) and mark the slot FALLBACK in the UI and the scenario JSON."
+      },
+      "mechanisms": {
+        "mode": "none",
+        "note": "No Mech_/PROVISIONAL_HeadRack_* nodes exist. Show deck/ramp motion controls disabled, with the note 'Static model - motion not rigged for this rig'."
+      },
+      "flags": [
+        "UNCALIBRATED stock SCS proportions: the trailer is about 0.8 m longer and the CX09 tandem sits about 3.3 m further back than Daryl's corrected default trailer",
+        "tyres are PROVISIONAL clones of the default T660 drive/steer tyres at the SCS wheel locators. Track widths were copied from the default because the SCS x offsets were not recorded",
+        "fifth-wheel height 0.288 m vs default 0.546 m: the coupling is self-consistent within this rig, but lower than the default",
+        "Daryl's cab photo shows a Peterbilt badge (directive 1.5). This rig may be closer to his real tractor, but the exact model is unconfirmed",
+        "physical_contact_verified=false"
+      ]
+    },
+    {
+      "id": "t880_daycab_stinger",
+      "label": "Kenworth T880 day cab + Cottrell (needs fitting)",
+      "short_label": "T880 day cab",
+      "default": false,
+      "enabled": false,
+      "status": "NOT_BUILT: disabled in the menu (show greyed out with a 'coming later' tooltip, or hide)",
+      "planned_parts": {
+        "tractor": [
+          "t880_chs_short.glb (1bO0tfWl5b2HeDAfylEDJOYrF-4Z-VmTe)",
+          "t880_cab_a.glb Duty Day Cabin (1Iblefjbec11wxPzyw9QsUalMtrg8Pqao)",
+          "headrack: p389_cottrell_headrack re-seated (no cottrell locator on T880)"
+        ],
+        "trailer": [
+          "cx09lsfa_trailer_body_chassis.glb or cottrell_lite_trailer_body_chassis.glb"
+        ]
+      },
+      "blockers": [
+        "The T880 has a highway fifth wheel (hook_t about 1.0 m high, ahead of the axles). A stinger trailer needs a low fifth wheel behind the drives (about 0.3 m), so a stinger frame extension has to be modelled",
+        "There is no Cottrell headrack locator on the T880, so the headrack seat must be fitted in Blender",
+        "Several hook_t locators exist and the right one for chs_short is not established"
+      ],
+      "next_step": "Stinger Build Bot (Loft_PC, Blender 3.6) fitting pass"
+    },
+    {
+      "id": "t880_madrina_rigid",
+      "label": "Kenworth T880 Madrina (Mexican rigid carrier, visual reference)",
+      "short_label": "T880 Madrina",
+      "default": false,
+      "enabled": false,
+      "status": "NOT_BUILT: reference only, not a Cottrell stinger",
+      "planned_parts": {
+        "tractor": [
+          "t880_chs_madrina.glb (25.5 MB: must be compressed under 20 MB)",
+          "t880_cab_m.glb",
+          "t880_rack_madrina_1.glb"
+        ],
+        "trailer": []
+      },
+      "blockers": [
+        "Rigid truck with no trailer: the D4-D10 trailer slots do not apply",
+        "Large side panels render solid (alpha panels in-game)",
+        "chs_madrina2/3 are 44-45 MB raw"
+      ],
+      "next_step": "Only if Daryl wants a Mexican-style comparison rig"
+    }
+  ],
+  "skipped": {
+    "paint_only": "Cottrell colour looks (orange/blue/red/black on CX09; 7 LITE colours) are material swaps, not rigs. Add later as a colour option, not as roster entries.",
+    "cottrell_lite_trailer_body_chassis": "madrina.scs = the same Cottrell LITE trailer already behind the default (byte-identical source). CX09 shares its chassis piece for piece.",
+    "t880_sleepers": "cab_b/c/d are sleepers; Daryl runs a day cab."
+  }
+}
