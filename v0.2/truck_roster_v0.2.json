@@ -1,0 +1,621 @@
+{
+  "roster": "Stinger Garage truck roster",
+  "version": "v0.2",
+  "schema": "stinger-truck-roster-v2",
+  "generated": "2026-10-13T18:56:57-04:00",
+  "generator": "box: Blender 4.2.3 headless + trimesh + gltf-transform 4 / meshoptimizer",
+  "hosting": {
+    "repo": "https://github.com/DARYLHUFF/stinger-garage-trucks",
+    "tag": "v0.2",
+    "cdn_base": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.2/",
+    "jsdelivr_limits": "20 MB per file (all parts below are under 20 MB); 50 MB limit applies only to directory listings, not file links."
+  },
+  "conventions": {
+    "units": "metres",
+    "frame": "glTF Y-up, front of tractor = -Z, ground (tyre contact) at y=0 - identical to the live default hauler",
+    "composition": "A rig is two GLBs (tractor + trailer) loaded and parented under one group named Hauler_<id>. Each part already contains its own Hauler_<...> root node; adopt its children (the SCSRoot_* nodes) into the rig group. World transforms are baked so root_offset_m is [0,0,0] for every v0.1 rig.",
+    "canonical_roots": {
+      "tractor": [
+        "SCSRoot_tractor_chassis",
+        "SCSRoot_tractor_cabin",
+        "SCSRoot_truck_cottrell_upgrade"
+      ],
+      "trailer": [
+        "SCSRoot_trailer_body",
+        "SCSRoot_trailer_chassis"
+      ],
+      "note": "Same names the live app's unit-splitter (Unit_tractor / Unit_trailer, presentation gap) already looks for."
+    },
+    "loader_requirements": [
+      "EXT_meshopt_compression (GLTFLoader.setMeshoptDecoder(MeshoptDecoder))",
+      "KHR_mesh_quantization (normals int8; positions are untouched float32)"
+    ],
+    "compression": "meshopt FILTER bitstream only: no reorder, no position quantization, node TRS unchanged. Default-rig parts were checked node-by-node against the 30.4 source: 756/756 nodes, max world-position/bbox difference 0 m.",
+    "v02_note": "v0.2 tractors are single GLBs with one root node Tractor_<id> (transform baked into that node) plus an empty hitch_fifth_wheel node. Same frame: metres, Y-up, front -Z, tyres y=0, fifth wheel at z=4.263. Normals quantized only; positions float32."
+  },
+  "world_alignment": {
+    "basis": "fifth wheel / kingpin",
+    "default_kingpin_world_m": [
+      0,
+      0.546,
+      4.263
+    ],
+    "rule": "Every rig is baked so its tractor fifth wheel and trailer kingpin sit at z = 4.263 (the default's coupled hook2). The garage floor, world origin and lot origin do not move when rigs change. The display gap between units is still applied at runtime by the existing presentation shift; it is not baked in."
+  },
+  "pairing": {
+    "rule": "Any enabled tractor may be paired with any enabled trailer. All hitch points and kingpins share z=4.263. Fifth-wheel heights differ per tractor, so lift/lower the trailer by (tractor.hitch_point.world_m[1] - trailer.kingpin_world_m[1]) at runtime."
+  },
+  "default_tractor_id": "t660_cottrell_default__tractor",
+  "default_trailer_id": "t660_cottrell_default__trailer",
+  "tractors": [
+    {
+      "id": "t660_cottrell_default__tractor",
+      "name": "T660 + Cottrell (tractor)",
+      "from_v01_rig": "t660_cottrell_default",
+      "enabled": true,
+      "default": true,
+      "status": "CURRENT_BASELINE (same geometry as the live 30.4 hauler, split into two parts for the CDN)",
+      "license": "unverified (derived from third-party ATS mods; see v0.1 roster source fields)",
+      "url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.1/v0.1/glb/t660_cottrell_default__tractor_v0.1.glb",
+      "file": "v0.1/glb/t660_cottrell_default__tractor_v0.1.glb",
+      "sha256": "7790bf0ebe0fd5a28c35e9e67a3195f0e476bc89a787acd4777ef56b83bf2653",
+      "size_bytes": 8964084,
+      "roots": [
+        "SCSRoot_tractor_chassis",
+        "SCSRoot_tractor_cabin",
+        "SCSRoot_truck_cottrell_upgrade"
+      ],
+      "bbox_world_m": {
+        "min": [
+          -1.7474,
+          0,
+          -6.603
+        ],
+        "max": [
+          1.7474,
+          4.2513,
+          7.272
+        ]
+      },
+      "hitch_point": {
+        "world_m": [
+          0,
+          0.546,
+          4.263
+        ],
+        "source": "hook2 node in default"
+      },
+      "wheel_world_m": {
+        "tractor_front": [
+          [
+            -1.002,
+            0.516,
+            -3.112
+          ],
+          [
+            1.002,
+            0.516,
+            -3.113
+          ]
+        ],
+        "tractor_drive": [
+          [
+            -0.907,
+            0.516,
+            0.462
+          ],
+          [
+            0.907,
+            0.516,
+            0.462
+          ],
+          [
+            -0.907,
+            0.516,
+            1.71
+          ],
+          [
+            0.907,
+            0.516,
+            1.71
+          ]
+        ]
+      }
+    },
+    {
+      "id": "p389_cottrell_cx09__tractor",
+      "name": "389 + CX09 (tractor)",
+      "from_v01_rig": "p389_cottrell_cx09",
+      "enabled": true,
+      "default": false,
+      "status": "PROVISIONAL_ASSEMBLY (box-assembled from package 35 GLBs; not reviewed in Blender)",
+      "license": "unverified (derived from third-party ATS mods; see v0.1 roster source fields)",
+      "url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.1/v0.1/glb/p389_cottrell_cx09__tractor_v0.1.glb",
+      "file": "v0.1/glb/p389_cottrell_cx09__tractor_v0.1.glb",
+      "sha256": "7a61e817db1aafc0f41bcf95481deb526cc403e009ae18bd607e13b3268bd7c2",
+      "size_bytes": 5470484,
+      "roots": [
+        "SCSRoot_tractor_chassis",
+        "SCSRoot_tractor_cabin",
+        "SCSRoot_truck_cottrell_upgrade"
+      ],
+      "bbox_world_m": {
+        "min": [
+          -1.3737,
+          0.0005,
+          -5.4771
+        ],
+        "max": [
+          1.3737,
+          3.7435,
+          4.6485
+        ]
+      },
+      "hitch_point": {
+        "world_m": [
+          0,
+          0.288,
+          4.263
+        ],
+        "source": "SCS hook_t_bc (truck) and hook2 (trailer) locators from package 35 convert_p389.json"
+      },
+      "wheel_world_m": {
+        "tractor_front_z": -4.387,
+        "tractor_drive_z": [
+          1.661,
+          3.006
+        ]
+      }
+    },
+    {
+      "id": "t880_daycab_stinger",
+      "name": "Kenworth T880 day cab + Cottrell (needs fitting)",
+      "enabled": false,
+      "status": "NOT_BUILT: disabled in the menu (show greyed out with a 'coming later' tooltip, or hide)",
+      "planned_parts": {
+        "tractor": [
+          "t880_chs_short.glb (1bO0tfWl5b2HeDAfylEDJOYrF-4Z-VmTe)",
+          "t880_cab_a.glb Duty Day Cabin (1Iblefjbec11wxPzyw9QsUalMtrg8Pqao)",
+          "headrack: p389_cottrell_headrack re-seated (no cottrell locator on T880)"
+        ],
+        "trailer": [
+          "cx09lsfa_trailer_body_chassis.glb or cottrell_lite_trailer_body_chassis.glb"
+        ]
+      },
+      "blockers": [
+        "The T880 has a highway fifth wheel (hook_t about 1.0 m high, ahead of the axles). A stinger trailer needs a low fifth wheel behind the drives (about 0.3 m), so a stinger frame extension has to be modelled",
+        "There is no Cottrell headrack locator on the T880, so the headrack seat must be fitted in Blender",
+        "Several hook_t locators exist and the right one for chs_short is not established"
+      ],
+      "next_step": "Stinger Build Bot (Loft_PC, Blender 3.6) fitting pass",
+      "note": "kept disabled from v0.1"
+    },
+    {
+      "id": "t880_madrina_rigid",
+      "name": "Kenworth T880 Madrina (Mexican rigid carrier, visual reference)",
+      "enabled": false,
+      "status": "NOT_BUILT: reference only, not a Cottrell stinger",
+      "planned_parts": {
+        "tractor": [
+          "t880_chs_madrina.glb (25.5 MB: must be compressed under 20 MB)",
+          "t880_cab_m.glb",
+          "t880_rack_madrina_1.glb"
+        ],
+        "trailer": []
+      },
+      "blockers": [
+        "Rigid truck with no trailer: the D4-D10 trailer slots do not apply",
+        "Large side panels render solid (alpha panels in-game)",
+        "chs_madrina2/3 are 44-45 MB raw"
+      ],
+      "next_step": "Only if Daryl wants a Mexican-style comparison rig",
+      "note": "kept disabled from v0.1"
+    },
+    {
+      "id": "oga_peterbilt389_luke1985",
+      "name": "Peterbilt 389 (low-poly, luke1985)",
+      "make": "Peterbilt (389 styling; community model, not an OEM file)",
+      "type": "sleeper",
+      "enabled": true,
+      "default": false,
+      "source_url": "https://opengameart.org/content/truck-peterbilt-389",
+      "source_file": "peterbilt389_1.blend",
+      "author": "luke1985",
+      "license": "CC-BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "\"Peterbilt 389\" by luke1985 (https://opengameart.org/content/truck-peterbilt-389), licensed CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Modified: see changes.",
+      "changes": "Converted to GLB (Blender 4.2 headless); rotated 180 deg about Y so front = -Z; uniform scale x0.7107 (standard width 2.59 m); tyres seated on y=0; translated so the estimated fifth wheel sits at z=4.263; normals quantized + EXT_meshopt_compression (FILTER); root node Tractor_oga_peterbilt389_luke1985 carries the transform; added empty node hitch_fifth_wheel.",
+      "url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.2/v0.2/tractors/oga_peterbilt389_luke1985__tractor_v0.2.glb",
+      "file": "v0.2/tractors/oga_peterbilt389_luke1985__tractor_v0.2.glb",
+      "preview": "v0.2/previews/oga_peterbilt389_luke1985__side_v0.2.png",
+      "preview_url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.2/v0.2/previews/oga_peterbilt389_luke1985__side_v0.2.png",
+      "sha256": "c0360dd1350a9260fa2967df40bb98e793a02f10792f8e62362b1a7776f55b03",
+      "size_bytes": 972364,
+      "tris": 79006,
+      "dims_m": {
+        "width": 2.59,
+        "height": 3.427,
+        "length": 7.532
+      },
+      "bbox_world_m": {
+        "min": [
+          -1.295,
+          0.0,
+          -1.748
+        ],
+        "max": [
+          1.295,
+          3.427,
+          5.784
+        ]
+      },
+      "wheelbase_m": {
+        "value": 5.585,
+        "source": "measured on the scaled model (steer axle to tandem centre); not a published spec"
+      },
+      "axles_z_m": [
+        -1.122,
+        3.903,
+        5.023
+      ],
+      "scale_basis": "scaled to standard width 2.59 m (102 in)",
+      "hitch_point": {
+        "world_m": [
+          0,
+          0.568,
+          4.263
+        ],
+        "node": "hitch_fifth_wheel",
+        "method": "estimated: z = drive-tandem centre minus 0.20 m, baked to z=4.263; y = raycast: top of frame/deck at hitch z"
+      },
+      "status": "provisional",
+      "notes": "Scaled to standard width 2.59 m (102 in) measured across lower body/tyres; source proportions are wider than a real 389, so overall height came out 3.43 m (stack tops) vs ~4.0 m on a real 389. Published 389 spec checked (131 in / 123 in BBC aluminium hood, peterbilt.com/trucks/models/389) but not used for scaling because back-of-cab could not be located reliably on this mesh. Removed 12x12 m ground plane."
+    },
+    {
+      "id": "oga_mac_creomoto",
+      "name": "Mac truck (generic conventional tractor, creomoto)",
+      "make": "generic (Mack-like conventional; no OEM claim)",
+      "type": "sleeper",
+      "enabled": true,
+      "default": false,
+      "source_url": "https://opengameart.org/content/mac-truck",
+      "source_file": "Mac.blend",
+      "author": "creomoto",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution": "CC0 1.0 (no attribution required); credit: creomoto",
+      "changes": "Converted to GLB (Blender 4.2 headless); rotated 180 deg about Y so front = -Z; uniform scale x0.7238 (standard width 2.59 m); tyres seated on y=0; translated so the estimated fifth wheel sits at z=4.263; normals quantized + EXT_meshopt_compression (FILTER); root node Tractor_oga_mac_creomoto carries the transform; added empty node hitch_fifth_wheel.",
+      "url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.2/v0.2/tractors/oga_mac_creomoto__tractor_v0.2.glb",
+      "file": "v0.2/tractors/oga_mac_creomoto__tractor_v0.2.glb",
+      "preview": "v0.2/previews/oga_mac_creomoto__side_v0.2.png",
+      "preview_url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.2/v0.2/previews/oga_mac_creomoto__side_v0.2.png",
+      "sha256": "c2db22f1bac20a1b583f717a5b494f1989b96ea139ffbb035003fb1649d4f930",
+      "size_bytes": 636196,
+      "tris": 67428,
+      "dims_m": {
+        "width": 2.59,
+        "height": 2.379,
+        "length": 5.624
+      },
+      "bbox_world_m": {
+        "min": [
+          -1.295,
+          0.0,
+          0.577
+        ],
+        "max": [
+          1.295,
+          2.379,
+          6.2
+        ]
+      },
+      "wheelbase_m": {
+        "value": 3.181,
+        "source": "measured on the scaled model (steer axle to tandem centre); not a published spec"
+      },
+      "axles_z_m": [
+        1.282,
+        4.087,
+        4.839
+      ],
+      "scale_basis": "scaled to standard width 2.59 m (102 in)",
+      "hitch_point": {
+        "world_m": [
+          0,
+          0.695,
+          4.263
+        ],
+        "node": "hitch_fifth_wheel",
+        "method": "estimated: z = drive-tandem centre minus 0.20 m, baked to z=4.263; y = raycast: top of frame/deck at hitch z"
+      },
+      "status": "provisional",
+      "notes": "Scaled to standard width (2.59 m measured across tyres/lower body). Source is stylised with a very wide track, so height is only 2.38 m and tyres ~0.72 m dia, well under real size. Use for variety only, or rescale later. Dropped 2 NURBS curve objects that do not export."
+    },
+    {
+      "id": "oga_rgsdev_truck",
+      "name": "Low-poly cab-over tractor (Rgsdev)",
+      "make": "generic (cab-over, European style)",
+      "type": "day cab",
+      "enabled": true,
+      "default": false,
+      "source_url": "https://opengameart.org/content/free-low-poly-vehicles-pack",
+      "source_file": "Free Low Poly Vehicles Pack by Rgsdev/Truck/Truck.fbx",
+      "author": "Raphael Gonçalves (Rgsdev)",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution": "CC0 1.0 (no attribution required); credit: Raphael Gonçalves (Rgsdev)",
+      "changes": "Converted to GLB (Blender 4.2 headless); rotated 180 deg about Y so front = -Z; uniform scale x0.9250 (standard width 2.59 m); tyres seated on y=0; translated so the estimated fifth wheel sits at z=4.263; normals quantized + EXT_meshopt_compression (FILTER); root node Tractor_oga_rgsdev_truck carries the transform; added empty node hitch_fifth_wheel.",
+      "url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.2/v0.2/tractors/oga_rgsdev_truck__tractor_v0.2.glb",
+      "file": "v0.2/tractors/oga_rgsdev_truck__tractor_v0.2.glb",
+      "preview": "v0.2/previews/oga_rgsdev_truck__side_v0.2.png",
+      "preview_url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.2/v0.2/previews/oga_rgsdev_truck__side_v0.2.png",
+      "sha256": "68e6c8aa4c307b0a17766ef73b4d0b8898ae9f78c174cf6927e8a00817bfdc55",
+      "size_bytes": 39876,
+      "tris": 1812,
+      "dims_m": {
+        "width": 3.158,
+        "height": 2.97,
+        "length": 4.979
+      },
+      "bbox_world_m": {
+        "min": [
+          -1.579,
+          0.0,
+          0.556
+        ],
+        "max": [
+          1.579,
+          2.97,
+          5.535
+        ]
+      },
+      "wheelbase_m": {
+        "value": 3.131,
+        "source": "measured on the scaled model (steer axle to tandem centre); not a published spec"
+      },
+      "axles_z_m": [
+        1.332,
+        3.936,
+        4.99
+      ],
+      "scale_basis": "scaled to standard width 2.59 m (102 in)",
+      "hitch_point": {
+        "world_m": [
+          0,
+          0.588,
+          4.263
+        ],
+        "node": "hitch_fifth_wheel",
+        "method": "estimated: z = drive-tandem centre minus 0.20 m, baked to z=4.263; y = raycast: top of frame/deck at hitch z"
+      },
+      "status": "provisional",
+      "notes": "Scaled to standard width (2.59 m measured across tyres/lower body); overall width 3.16 m includes mirrors. Cab-over, not a US conventional. Wheels are separate nodes."
+    },
+    {
+      "id": "pp_cargo_truck_jtoastie",
+      "name": "Cargo Truck tractor (J-Toastie, trailer removed)",
+      "make": "generic (cab-over, European style)",
+      "type": "day cab",
+      "enabled": true,
+      "default": false,
+      "source_url": "https://poly.pizza/m/Fy3WI3uXNQ",
+      "source_file": "https://static.poly.pizza/4e798498-be05-47ac-988a-ad953cf46236.glb",
+      "author": "J-Toastie",
+      "license": "CC-BY 3.0",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "attribution": "\"Cargo Truck tractor\" by J-Toastie (https://poly.pizza/m/Fy3WI3uXNQ), licensed CC-BY 3.0 (https://creativecommons.org/licenses/by/3.0/). Modified: see changes.",
+      "changes": "Converted to GLB (Blender 4.2 headless); rotated 180 deg about Y so front = -Z; uniform scale x1.5695 (standard width 2.59 m); tyres seated on y=0; translated so the estimated fifth wheel sits at z=4.263; normals quantized + EXT_meshopt_compression (FILTER); root node Tractor_pp_cargo_truck_jtoastie carries the transform; added empty node hitch_fifth_wheel.",
+      "url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.2/v0.2/tractors/pp_cargo_truck_jtoastie__tractor_v0.2.glb",
+      "file": "v0.2/tractors/pp_cargo_truck_jtoastie__tractor_v0.2.glb",
+      "preview": "v0.2/previews/pp_cargo_truck_jtoastie__side_v0.2.png",
+      "preview_url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.2/v0.2/previews/pp_cargo_truck_jtoastie__side_v0.2.png",
+      "sha256": "d9375287f4769aa70c01d0ef66072be9efbabe8178c3f5f422039a331e4fc0c6",
+      "size_bytes": 86704,
+      "tris": 3089,
+      "dims_m": {
+        "width": 2.59,
+        "height": 3.274,
+        "length": 6.146
+      },
+      "bbox_world_m": {
+        "min": [
+          -1.295,
+          0.0,
+          -0.471
+        ],
+        "max": [
+          1.295,
+          3.274,
+          5.675
+        ]
+      },
+      "wheelbase_m": {
+        "value": 3.627,
+        "source": "measured on the scaled model (steer axle to tandem centre); not a published spec"
+      },
+      "axles_z_m": [
+        0.836,
+        3.897,
+        5.029
+      ],
+      "scale_basis": "scaled to standard width 2.59 m (102 in)",
+      "hitch_point": {
+        "world_m": [
+          0,
+          1.025,
+          4.263
+        ],
+        "node": "hitch_fifth_wheel",
+        "method": "estimated: z = drive-tandem centre minus 0.20 m, baked to z=4.263; y = raycast: top of frame/deck at hitch z"
+      },
+      "status": "provisional",
+      "notes": "Scaled to standard width (2.59 m measured across tyres/lower body). Removed the box trailer and its chassis/tyres (objects Cargo, CargoHoldThing, CargoTires01/02); kept the tractor and its tyres."
+    },
+    {
+      "id": "oga_18wheeler_tehbucket",
+      "name": "18 Wheeler tractor (tehbucket, trailer removed)",
+      "make": "generic (US conventional)",
+      "type": "sleeper",
+      "enabled": true,
+      "default": false,
+      "source_url": "https://opengameart.org/content/semi-trailer-truck-lowpoly",
+      "source_file": "18 Wheeler.blend",
+      "author": "tehbucket",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution": "CC0 1.0 (no attribution required); credit: tehbucket",
+      "changes": "Converted to GLB (Blender 4.2 headless); rotated -90 deg about Y so front = -Z; uniform scale x0.6965 (standard width 2.59 m); tyres seated on y=0; translated so the estimated fifth wheel sits at z=4.263; normals quantized + EXT_meshopt_compression (FILTER); root node Tractor_oga_18wheeler_tehbucket carries the transform; added empty node hitch_fifth_wheel.",
+      "url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.2/v0.2/tractors/oga_18wheeler_tehbucket__tractor_v0.2.glb",
+      "file": "v0.2/tractors/oga_18wheeler_tehbucket__tractor_v0.2.glb",
+      "preview": "v0.2/previews/oga_18wheeler_tehbucket__side_v0.2.png",
+      "preview_url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.2/v0.2/previews/oga_18wheeler_tehbucket__side_v0.2.png",
+      "sha256": "5d222801f98f792769536524b78986d4d166125923339a67d5882cffdf86b6c7",
+      "size_bytes": 10240,
+      "tris": 326,
+      "dims_m": {
+        "width": 2.59,
+        "height": 4.097,
+        "length": 7.395
+      },
+      "bbox_world_m": {
+        "min": [
+          -1.295,
+          0.0,
+          -1.515
+        ],
+        "max": [
+          1.295,
+          4.097,
+          5.88
+        ]
+      },
+      "wheelbase_m": {
+        "value": 5.032,
+        "source": "measured on the scaled model (steer axle to tandem centre); not a published spec"
+      },
+      "axles_z_m": [
+        -0.569,
+        3.785,
+        5.141
+      ],
+      "scale_basis": "scaled to standard width 2.59 m (102 in)",
+      "hitch_point": {
+        "world_m": [
+          0,
+          1.061,
+          4.263
+        ],
+        "node": "hitch_fifth_wheel",
+        "method": "estimated: z = drive-tandem centre minus 0.20 m, baked to z=4.263; y = raycast: top of frame/deck at hitch z"
+      },
+      "status": "provisional",
+      "notes": "Very low poly (326 tris). Scaled to standard width (2.59 m measured across tyres/lower body); height 4.10 m. The source is one mesh, so the trailer box and trailer wheels were cut out by face (material truck.trailer, trailer-axle faces)."
+    }
+  ],
+  "trailers": [
+    {
+      "id": "t660_cottrell_default__trailer",
+      "name": "T660 + Cottrell (trailer)",
+      "from_v01_rig": "t660_cottrell_default",
+      "enabled": true,
+      "default": true,
+      "status": "CURRENT_BASELINE (same geometry as the live 30.4 hauler, split into two parts for the CDN)",
+      "license": "unverified (derived from third-party ATS mods; see v0.1 roster source fields)",
+      "url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.1/v0.1/glb/t660_cottrell_default__trailer_v0.1.glb",
+      "file": "v0.1/glb/t660_cottrell_default__trailer_v0.1.glb",
+      "sha256": "e375546baf3372cfc6ae66a4a05059e0caa311b02f44bcc7ca0ed8ee261e00a9",
+      "size_bytes": 14876400,
+      "roots": [
+        "SCSRoot_trailer_body",
+        "SCSRoot_trailer_chassis"
+      ],
+      "bbox_world_m": {
+        "min": [
+          -1.7474,
+          -0.0691,
+          1.2769
+        ],
+        "max": [
+          1.7474,
+          2.9495,
+          17.7504
+        ]
+      },
+      "kingpin_world_m": [
+        0,
+        0.546,
+        4.263
+      ],
+      "wheel_world_m": {
+        "trailer": [
+          [
+            -0.865,
+            0.436,
+            10.009
+          ],
+          [
+            0.865,
+            0.436,
+            10.009
+          ],
+          [
+            -0.865,
+            0.436,
+            11.155
+          ],
+          [
+            0.865,
+            0.436,
+            11.155
+          ]
+        ]
+      }
+    },
+    {
+      "id": "p389_cottrell_cx09__trailer",
+      "name": "389 + CX09 (trailer)",
+      "from_v01_rig": "p389_cottrell_cx09",
+      "enabled": true,
+      "default": false,
+      "status": "PROVISIONAL_ASSEMBLY (box-assembled from package 35 GLBs; not reviewed in Blender)",
+      "license": "unverified (derived from third-party ATS mods; see v0.1 roster source fields)",
+      "url": "https://cdn.jsdelivr.net/gh/DARYLHUFF/stinger-garage-trucks@v0.1/v0.1/glb/p389_cottrell_cx09__trailer_v0.1.glb",
+      "file": "v0.1/glb/p389_cottrell_cx09__trailer_v0.1.glb",
+      "sha256": "803d1e6390cc2afb2cd2037403feef55ac965d1d0aac833669f47184eabdec18",
+      "size_bytes": 9323960,
+      "roots": [
+        "SCSRoot_trailer_body",
+        "SCSRoot_trailer_chassis"
+      ],
+      "bbox_world_m": {
+        "min": [
+          -1.3701,
+          0.0005,
+          4.1053
+        ],
+        "max": [
+          1.3701,
+          2.9908,
+          18.798
+        ]
+      },
+      "kingpin_world_m": [
+        0,
+        0.3,
+        4.263
+      ],
+      "wheel_world_m": {
+        "trailer_z": [
+          13.336,
+          14.548
+        ],
+        "hub_y": 0.516
+      }
+    }
+  ],
+  "skipped_v01": {
+    "paint_only": "Cottrell colour looks (orange/blue/red/black on CX09; 7 LITE colours) are material swaps, not rigs. Add later as a colour option, not as roster entries.",
+    "cottrell_lite_trailer_body_chassis": "madrina.scs = the same Cottrell LITE trailer already behind the default (byte-identical source). CX09 shares its chassis piece for piece.",
+    "t880_sleepers": "cab_b/c/d are sleepers; Daryl runs a day cab."
+  }
+}
